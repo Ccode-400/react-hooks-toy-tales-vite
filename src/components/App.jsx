@@ -18,6 +18,23 @@ function App() {
     setShowForm((showForm) => !showForm);
   }
 
+  function addToy(newToy) {
+    fetch("http://localhost:3001/toys", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...newToy,
+        likes: 0,
+      }),
+    })
+      .then((r) => r.json())
+      .then((toy) => {
+        setToys([...toys, toy]);
+      });
+  }
+
   return (
     <>
       <Header />
