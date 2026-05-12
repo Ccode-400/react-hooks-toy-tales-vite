@@ -1,6 +1,6 @@
 import React from "react";
 
-function ToyCard() {
+function ToyCard({ toy, onDelete, onLike }) {
   return (
     <div className="card" data-testid="toy-card">
       <h2>{"" /* Toy's Name */}</h2>
