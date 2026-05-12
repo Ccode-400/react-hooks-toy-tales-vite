@@ -4,6 +4,20 @@ function ToyForm({ addToy }) {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
 
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const newToy = {
+      name,
+      image,
+    };
+
+    addToy(newToy);
+
+    setName("");
+    setImage("");
+  }
+
   
   return (
     <div className="container">
