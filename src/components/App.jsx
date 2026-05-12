@@ -35,6 +35,17 @@ function App() {
       });
   }
 
+  function handleDelete(id) {
+    fetch(`http://localhost:3001/toys/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      const updatedToys = toys.filter((toy) => toy.id !== id);
+      setToys(updatedToys);
+    });
+  }
+
+  
+
   return (
     <>
       <Header />
