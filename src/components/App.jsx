@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Header from "./Header";
 import ToyForm from "./ToyForm";
@@ -19,61 +19,37 @@ function App() {
   }
 
   function addToy(newToy) {
-    fetch("http://localhost:3001/toys", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...newToy,
-        likes: 0,
-      }),
-    })
-      .then((r) => r.json())
-      .then((toy) => {
-        setToys([...toys, toy]);
-      });
+    setToys([...toys, newToy]);
   }
 
-  function handleDelete(id) {
-    fetch(`http://localhost:3001/toys/${id}`, {
-      method: "DELETE",
-    }).then(() => {
-      const updatedToys = toys.filter((toy) => toy.id !== id);
-      setToys(updatedToys);
-    });
+  function deleteToy(id) {
+    const updatedToys = toys.filter((toy) => toy.id !== id);
+    setToys(updatedToys);
   }
 
-  function handleLike(toy) {
-    fetch(`http://localhost:3001/toys/${toy.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        likes: toy.likes + 1,
-      }),
-    })
-      .then((r) => r.json())
-      .then((updatedToy) => {
-        const updatedToys = toys.map((t) =>
-          t.id === updatedToy.id ? updatedToy : t
-        );
+  function updateLikes(updatedToy) {
+    const updatedToys = toys.map((toy) =>
+      toy.id === updatedToy.id ? updatedToy : toy
+    );
 
-        setToys(updatedToys);
-      });
+    setToys(updatedToys);
   }
-
-  
 
   return (
     <>
       <Header />
-      {showForm ? <ToyForm /> : null}
+
+      {showForm ? <ToyForm addToy={addToy} /> : null}
+
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer />
+
+      <ToyContainer
+        toys={toys}
+        deleteToy={deleteToy}
+        updateLikes={updateLikes}
+      />
     </>
   );
 }

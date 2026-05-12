@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 
 function ToyForm({ addToy }) {
   const [name, setName] = useState("");
@@ -47,9 +47,7 @@ function ToyForm({ addToy }) {
           className="submit"
         />
 
-        <button type="submit" className="submit">
-          Create New Toy
-        </button>
+        
       </form>
     </div>
   );
