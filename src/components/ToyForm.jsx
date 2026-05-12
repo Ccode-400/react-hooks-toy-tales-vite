@@ -47,7 +47,9 @@ function ToyForm({ addToy }) {
           className="submit"
         />
 
-        
+        <button type="submit" className="submit">
+          Create New Toy
+        </button>
       </form>
     </div>
   );
