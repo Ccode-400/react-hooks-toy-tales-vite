@@ -44,6 +44,26 @@ function App() {
     });
   }
 
+  function handleLike(toy) {
+    fetch(`http://localhost:3001/toys/${toy.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        likes: toy.likes + 1,
+      }),
+    })
+      .then((r) => r.json())
+      .then((updatedToy) => {
+        const updatedToys = toys.map((t) =>
+          t.id === updatedToy.id ? updatedToy : t
+        );
+
+        setToys(updatedToys);
+      });
+  }
+
   
 
   return (
